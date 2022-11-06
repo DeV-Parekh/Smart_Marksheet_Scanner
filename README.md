@@ -1,4 +1,4 @@
-# Smart_Marksheet_Scanner
+# Smart Marksheet Scanner
 
 ## About
 
@@ -27,23 +27,16 @@ the database with very great accuracy and efficiency.
 
 
 
-## Built With
-
-
-* Python
-* OCR
-* Firebase
-* React
-* HTML/CSS
-* JavaScript
-
-
-
-
 ## Getting Started
 
+### Dependencies
+* EasyOCR
+* Flask
+* pdf2image
+* poppler
+
 ### Installation
-To run this project locally, open this project in Pycharm IDE and install all the dependencies.
+To run this project locally, open this project in any IDE of your choice and install all the dependencies.
 
 ### Giving PATH
 In `main.py` file, give appropriate path to PATH variable.
