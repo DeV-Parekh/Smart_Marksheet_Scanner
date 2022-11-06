@@ -1,19 +1,22 @@
-import json
-
-from flask import Flask, flash, redirect, render_template, request
-from werkzeug.utils import secure_filename
 import re
-from pdf2image import convert_from_path
-import easyocr
-import numpy as np
 import sqlite3
 
+import easyocr
+import numpy as np
+from flask import Flask, flash, redirect, render_template, request
+from pdf2image import convert_from_path
+from werkzeug.utils import secure_filename
+
+import config
+
 app = Flask(__name__)
-app.secret_key = "secret key"
+app.secret_key = config.SECRET_KEY
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024
 
-ALLOWED_EXTENSIONS = {"pdf"}
+ALLOWED_EXTENSIONS = set(["pdf"])
 
+PATH = "" # your project path
+POPPLER_PATH = "" # your poppler bin path
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -37,7 +40,7 @@ def gseb(path):
     reader = easyocr.Reader(['en'])
 
     images = convert_from_path(path,
-                               poppler_path='C:/Users/DEV/Downloads/Release-22.04.0-0/poppler-22.04.0/Library/bin')
+                               poppler_path=POPPLER_PATH)
 
     bounds = reader.readtext(np.array(images[0]), min_size=0, slope_ths=0.2, ycenter_ths=0.7, height_ths=0.6,
                              width_ths=0.8, decoder='beamsearch', beamWidth=10)
@@ -95,7 +98,7 @@ def cbse(path):
     reader = easyocr.Reader(['en'])
 
     images = convert_from_path(path,
-                               poppler_path='C:/Users/DEV/Downloads/Release-22.04.0-0/poppler-22.04.0/Library/bin')
+                               poppler_path=POPPLER_PATH)
 
     bounds = reader.readtext(np.array(images[0]), min_size=0, slope_ths=0.2, ycenter_ths=0.7, height_ths=0.6,
                              width_ths=0.8, decoder='beamsearch', beamWidth=10)
@@ -146,7 +149,6 @@ def cbse(path):
 
     return [{'subject': 'Invalid', 'marks': 'Please upload again'}]
 
-
 @app.route("/")
 def upload_form():
     return render_template("board.html")
@@ -156,11 +158,9 @@ def upload_form():
 def index():
     return render_template("upload.html")
 
-
 @app.route("/upload2")
 def index2():
     return render_template("upload2.html")
-
 
 @app.route("/index")
 def upload():
@@ -180,9 +180,9 @@ def upload_gseb():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save("C:/Users/Dev/Downloads/Images" + filename)
-            result = gseb("C:/Users/Dev/Downloads/Images" + filename)
-            with open("C:/Users/DEV/PycharmProjects/tp/static/data.json", 'w') as file:
+            file.save(f"{PATH}/Images/" + filename)
+            result = gseb(f"{PATH}/Images/" + filename)
+            with open(f"{PATH}/static/data.json", 'w') as file:
                 file.write(str(result).replace("'", '"'))
 
             flash("File successfully uploaded")
@@ -190,7 +190,6 @@ def upload_gseb():
         else:
             flash("Allowed file types are pdf")
             return redirect(request.url)
-
 
 @app.route("/upload_cbse", methods=["POST"])
 def upload_cbse():
@@ -205,9 +204,9 @@ def upload_cbse():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save("C:/Users/Dev/Downloads/Images" + filename)
-            result = cbse("C:/Users/Dev/Downloads/Images" + filename)
-            with open("C:/Users/DEV/PycharmProjects/tp/static/data.json", 'w') as file:
+            file.save(f"{PATH}/Images/" + filename)
+            result = cbse(f"{PATH}/Images/" + filename)
+            with open(f"{PATH}/static/data.json", 'w') as file:
                 file.write(str(result).replace("'", '"'))
 
             flash("File successfully uploaded")
@@ -215,7 +214,6 @@ def upload_cbse():
         else:
             flash("Allowed file types are pdf")
             return redirect(request.url)
-
 
 if __name__ == "__main__":
     app.run(debug=True)
