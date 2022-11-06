@@ -8,9 +8,9 @@ education. And with this increase in challenges, the main issue faced by
 many organizations is data archiving and management. 
 
 We have realized this problem and have decided to come up with a solution
-which automate the entire process of data acquisition from the marksheet.
-Using OCR model, it can read any marksheet pdf with ease and store it in
-the database with very great accuracy and efficiency.
+which automates the entire process of data acquisition from the marksheet.
+Using OCR model, it can read most marksheet of GSEB and CBSE with ease and store it in
+the database with great accuracy and efficiency.
 
 
 
@@ -18,11 +18,11 @@ the database with very great accuracy and efficiency.
 ## Approach
 
 1. We will be taking the pdf format uploaded by the user and convert it into an image.
-2. That image will be processed by an OCR module which will find the text inside the given image.
+2. That image will be processed by  EasyOCR module which will find the text inside the given image.
 3. It will then add the unstructured text into a list.
 4. Then, the processing module will process and analyse the unstructured text into structured text.
-5. In the structured text, the module will find the subject and its corresponding marks,
-6. Then it will return the output in JSON format which will be sent by API to the database.
+5. In the structured text, the module will find the subject and its corresponding marks and will display the result to the website.
+6. Finally, it will store all the results into the database.
 
 
 
