@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  font-family: 'Open Sans', sans-serif;
+}
+
+body{
+  background: #06283D;
+  color: white;
+}
+
+.wrapper{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.wrapper .container{
+  width: 200px;
+}
+
+.wrapper .hamburger_btn{
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  position: relative;
+  cursor: pointer;
+}
+
+.wrapper .hamburger_btn > div{
+  position: absolute;
+  top: 45%;
+  left: 25%;
+  width: 50%;
+  height: 3px;
+  background: #fff;
+  border-radius: 50px;
+  transition: all 0.3s linear;
+}
+
+.wrapper .hamburger_btn .one{
+  top: 25%;
+}
+
+.wrapper .hamburger_btn .three{
+  top: 65%;
+}
+
+.wrapper .container .menu{
+  width: 180px;
+  height: auto;
+  margin: 0 auto;
+  background: #fff;
+  position: relative;
+  opacity: 0;
+  top: -10px;
+  transition: all 0.5s linear;
+}
+
+.wrapper .container .menu ul li{
+  text-align: center;
+  text-transform: uppercase;
+  transition: all 0.2s linear;
+}
+
+.wrapper .container .menu ul li a{
+  padding: 10px;
+  font-size: 12px;
+  color: #757575;
+  display: block;
+  transition: all 0.2s linear;
+}
+
+.wrapper .container .menu ul li:hover{
+  background: #80ddd2;
+}
+
+.wrapper .container .menu ul li:hover a{
+  color: #fff;
+}
+
+.wrapper .container .menu:before{
+  content: "";
+  position: absolute;
+  top: -19px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid #fff;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+
+.wrapper .hamburger_btn.active{
+  transform: rotate(90deg);
+}
+
+.wrapper .hamburger_btn.active .one{
+    top: 45%;
+    left: 25%;
+    transform: rotate(45deg);
+}
+
+.wrapper .hamburger_btn.active .two{
+  opacity: 0;
+}
+
+.wrapper .hamburger_btn.active .three{
+    top: 45%;
+    left: 25%;
+    transform: rotate(-45deg);
+}
+
+.wrapper .container .menu.active{
+  opacity: 1;
+  top: 0px;
+}
