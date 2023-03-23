@@ -46,7 +46,6 @@ Run the main.py file and it will start running on local machine.
 
 
 
-
 ## Usage
 
 1. Select GSEB or CBSE as per your choice.
